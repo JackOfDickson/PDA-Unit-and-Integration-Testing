@@ -24,6 +24,47 @@ describe("Calculator", () => {
     cy.get('.display').should('contain', '9')
   })
 
+  it('should be able to show a positive number', () => {
+    cy.get('#number3').click();
+    cy.get('#operator_add').click();
+    cy.get('#number5').click();
+    cy.get('#operator-equals').click();
+    cy.get('.display').should('contain', '8')
+  })
+
+  it('should handle very large numbers', () => {
+    cy.get('#number7').click();
+    cy.get('#number2').click();
+    cy.get('#number8').click();
+    cy.get('#number0').click();
+    cy.get('#number4').click();
+    cy.get('#number7').click();
+    cy.get('#number0').click();
+    cy.get('#operator-multiply').click();
+    cy.get('#number5').click();
+    cy.get('#number9').click();
+    cy.get('#number6').click();
+    cy.get('#number5').click();
+    cy.get('#number4').click();
+    cy.get('#operator-equals').click();
+    cy.get('.display').should('contain', '434309157380')
+  })
+
+  it('should update the running total as buttons are pressed during the calculation', () => {
+    cy.get('#number1').click();
+    cy.get('.display').should('contain', '1')
+    cy.get('#operator_add').click();
+    cy.get('#number2').click();
+    cy.get('.display').should('contain', '2')
+    cy.get('#operator_add').click();
+    cy.get('.display').should('contain', '3')
+    cy.get('#number5').click();
+    cy.get('.display').should('contain', '5')
+    cy.get('#operator-equals').click();
+    cy.get('.display').should('contain', '8')
+
+  })
+
   it('should be able to show a negitive number', () => {
     cy.get('#number9').click();
     cy.get('#operator-subtract').click();
@@ -63,4 +104,5 @@ describe("Calculator", () => {
     cy.get('#operator-equals').click();
     cy.get('.display').should('contain', 'Infinity');
   })
+
 })
